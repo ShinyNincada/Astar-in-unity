@@ -46,6 +46,9 @@ public class MyGrid : MonoBehaviour
             for(int y = -1; y <= 1; y++){
                 if(x == 0 && y == 0)
                     continue;
+
+                if(Mathf.Abs(x) == Mathf.Abs(y))
+                    continue;
                 
                 int checkX = node.gridX + x;
                 int checkY = node.gridY + y;
@@ -87,11 +90,14 @@ public class MyGrid : MonoBehaviour
 
         if(grid != null){
             Node playerNode = NodeFromWorldPoint(player.position);
+            Node targetNode = NodeFromWorldPoint(target.position);
             foreach(Node cell in grid){
                 Gizmos.color = cell.isObstacle?Color.red:Color.green;
                 if(playerNode == cell){
                     Gizmos.color = Color.cyan;
                 }
+                if(targetNode == cell)
+                    Gizmos.color = Color.yellow;
                 if(path != null){
                     if(path.Contains(cell)){
                         Gizmos.color = Color.black;
